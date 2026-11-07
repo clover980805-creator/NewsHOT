@@ -1,0 +1,196 @@
+/* 热点实时看板：米色底、红色衬线大标题。本地字体栈，不引任何外部字体/样式资源。 */
+:root {
+  --bg: #f6f1e7;
+  --card: #fffdf6;
+  --ink: #2b2620;
+  --muted: #8a7f6d;
+  --line: #e7ddc8;
+  --red: #c0392b;
+  --red-dark: #a93226;
+  --tag-beige: #f0e7d2;
+  --serif: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
+  --sans: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 12px 14px 40px; }
+
+/* 顶部状态条：更新时间 + 立即刷新（右上角），刷新结果小字在按钮左边 */
+.statusbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 2px 0 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--red);
+  flex: 0 0 auto;
+}
+.status-text { color: #5d5342; }
+.status-text b { color: var(--ink); font-weight: 600; }
+.status-spacer { flex: 1 1 auto; }
+.refresh-result { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.refresh-btn {
+  border: 0; border-radius: 8px;
+  background: var(--red); color: #fff;
+  font-size: 14px; font-weight: 600;
+  padding: 8px 16px; cursor: pointer;
+  white-space: nowrap;
+}
+.refresh-btn:disabled { background: #d89a90; cursor: default; }
+
+/* 全网总榜标题 */
+.board-title {
+  font-family: var(--serif);
+  color: var(--red);
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 6px 0 12px;
+  letter-spacing: 2px;
+}
+.section-title {
+  font-family: var(--serif);
+  color: var(--red);
+  font-size: 22px;
+  margin: 26px 0 10px;
+  letter-spacing: 1px;
+}
+
+/* 卡片与信息条 */
+.total-card, .platform-card, .cat-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.info-strip {
+  margin: 0;
+  padding: 12px 14px;
+  background: #fbf6e9;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: #5d5342;
+}
+.info-strip b { color: var(--ink); }
+.total-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px 4px;
+}
+.toggle { display: flex; }
+.toggle-btn {
+  border: 1px solid #d8cdb2;
+  background: #f3ecdb;
+  color: #6b5d43;
+  font-size: 14px;
+  padding: 7px 16px;
+  cursor: pointer;
+}
+.toggle-btn:first-child { border-radius: 999px 0 0 999px; }
+.toggle-btn:last-child { border-radius: 0 999px 999px 0; border-left: 0; }
+.toggle-btn.active { background: #2b2620; color: #fff; border-color: #2b2620; font-weight: 600; }
+.hint { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+/* 榜单条目 */
+.rank-list { list-style: none; margin: 0; padding: 0; }
+.rank-item {
+  display: flex;
+  gap: 12px;
+  padding: 13px 14px;
+  border-top: 1px solid var(--line);
+}
+.rank-item:first-child { border-top: 0; }
+.rank-num {
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.15;
+  min-width: 30px;
+  text-align: center;
+  color: #6b5d4f;
+}
+.rank-num.top3 { color: var(--red); font-weight: 700; }
+.rank-body { min-width: 0; flex: 1; }
+.rank-title {
+  display: block;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-decoration: none;
+  overflow-wrap: break-word;
+}
+.rank-title:hover { color: var(--red); text-decoration: underline; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 1px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.tag.must { background: var(--red); color: #fff; font-weight: 600; }
+.tag.cat { background: #2b2620; color: #fff; }
+.tag.src { background: var(--tag-beige); color: #6b5d43; white-space: normal; }
+.tag.hot { background: #f6f1e7; color: var(--muted); }
+
+/* 分类榜 */
+.cat-card { margin-bottom: 14px; }
+.cat-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #fbf6e9;
+  border-bottom: 1px solid var(--line);
+}
+.cat-head h3 {
+  font-family: var(--serif);
+  color: var(--red);
+  font-size: 19px;
+  margin: 0;
+}
+.cat-head span { font-size: 12px; color: var(--muted); }
+
+/* 平台胶囊 */
+.capsules { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.capsule {
+  border: 1px solid #d8cdb2;
+  background: var(--card);
+  color: #5d5342;
+  font-size: 13px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.capsule.active { border-color: #2b2620; font-weight: 700; color: var(--ink); background: #fff; }
+.platform-meta {
+  padding: 11px 14px;
+  background: #fbf6e9;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: #5d5342;
+}
+.platform-meta b { color: var(--ink); }
+
+.empty { padding: 18px 14px; color: var(--muted); margin: 0; }
+.foot { margin-top: 18px; font-size: 12px; color: var(--muted); text-align: center; }
+
+@media (max-width: 480px) {
+  .board-title { font-size: 26px; }
+  .rank-title { font-size: 15px; }
+  .rank-num { font-size: 23px; min-width: 26px; }
+}

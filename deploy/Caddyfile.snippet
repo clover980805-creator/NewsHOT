@@ -1,0 +1,5 @@
+# 加到 VPS 现有 Caddyfile（先只读看清现有配置，照 Evidence / Sanford 的写法复制一份；不要动 Evidence 的任何配置）
+news.clover0805.top {
+    encode gzip
+    reverse_proxy 127.0.0.1:3210
+}

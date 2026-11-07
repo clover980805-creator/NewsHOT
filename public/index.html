@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>热点实时看板</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="page">
+  <div class="statusbar">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span id="statusText" class="status-text">正在加载…</span>
+    <span class="status-spacer"></span>
+    <span id="refreshResult" class="refresh-result"></span>
+    <button id="refreshBtn" type="button" class="refresh-btn">立即刷新</button>
+  </div>
+
+  <h1 class="board-title">全网总榜</h1>
+
+  <div class="total-card">
+    <p class="info-strip" id="infoStrip"></p>
+    <div class="total-head">
+      <div class="toggle" role="tablist" aria-label="总榜范围">
+        <button id="tabAll" type="button" class="toggle-btn active">精选 20</button>
+        <button id="tabMust" type="button" class="toggle-btn">只看必看 10</button>
+      </div>
+      <span class="hint">点标题跳原文</span>
+    </div>
+    <ol id="totalList" class="rank-list"></ol>
+    <p id="totalEmpty" class="empty" hidden>暂无数据，点右上角「立即刷新」试一次。</p>
+  </div>
+
+  <section id="categories" class="categories"></section>
+
+  <section class="platforms">
+    <h2 class="section-title">各平台热榜</h2>
+    <div id="capsules" class="capsules"></div>
+    <div class="platform-card">
+      <div id="platformMeta" class="platform-meta"></div>
+      <ol id="platformList" class="rank-list"></ol>
+    </div>
+  </section>
+
+  <footer class="foot" id="footText"></footer>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

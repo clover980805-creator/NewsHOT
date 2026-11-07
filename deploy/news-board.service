@@ -1,0 +1,16 @@
+[Unit]
+Description=热点实时看板（news.clover0805.top）
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/news-board
+Environment=PORT=3210
+ExecStart=/usr/bin/node /opt/news-board/server.mjs
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

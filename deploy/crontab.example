@@ -1,0 +1,2 @@
+# 备用：不用 systemd timer 时，用 cron 每 2 小时跑一次（两者二选一，不要同时启用）
+# 0 */2 * * * root /usr/bin/node /opt/news-board/scripts/update.mjs >> /var/log/news-board-update.log 2>&1

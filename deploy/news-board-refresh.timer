@@ -1,0 +1,10 @@
+[Unit]
+Description=每 2 小时刷新热点实时看板缓存
+
+[Timer]
+OnCalendar=*-*-* 00/2:00:00
+Persistent=true
+Unit=news-board-refresh.service
+
+[Install]
+WantedBy=timers.target

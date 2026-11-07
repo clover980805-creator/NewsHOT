@@ -1,0 +1,15 @@
+{
+  "name": "news-board",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "热点实时看板（服务器版）VPS 部署包：服务端定时聚合 + 缓存，访客只读缓存。",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "update": "node scripts/update.mjs",
+    "verify-sort": "node scripts/verify-sort.mjs"
+  }
+}

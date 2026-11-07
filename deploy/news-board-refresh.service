@@ -1,0 +1,8 @@
+[Unit]
+Description=热点实时看板定时刷新（拉取热榜写缓存）
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/opt/news-board
+ExecStart=/usr/bin/node /opt/news-board/scripts/update.mjs
